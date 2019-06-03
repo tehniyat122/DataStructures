@@ -1,0 +1,238 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct node
+{
+    int data;
+    struct node* next;
+    struct node* prev;
+};
+struct node* head;
+
+void Insertionfirst(int item)
+{
+    struct node* ptr=(struct node*)malloc(sizeof(struct node));
+    if(ptr == NULL)
+    {
+        printf("Memory Overflow");
+    }
+    ptr->data=item;
+    if(head == NULL)
+    {
+        ptr->prev=NULL;
+        ptr->next=NULL;
+        head=ptr;
+    }
+    else
+    {
+       ptr->next=head;
+       ptr->prev=NULL;
+       head->prev=ptr;
+       head=ptr;
+       
+    }
+}
+
+
+void Insertionend(int item)
+{
+    struct node* ptr=(struct node*)malloc(sizeof(struct node));
+    if(ptr == NULL)
+    {
+        printf("Memory Overflow");
+    }
+    ptr->data=item;
+    if(head == NULL)
+    {
+        ptr->prev=NULL;
+        ptr->next=NULL;
+        head=ptr;
+    }
+    else
+    {
+       struct node* temp=head;
+       while(temp->next != NULL)
+       {
+        temp=temp->next;   
+       }
+        
+        temp->next=ptr;
+        ptr->prev=temp;
+        ptr->next=NULL;
+     }
+}
+
+
+void Insertionmiddle(int item)
+{
+    struct node* ptr=(struct node*)malloc(sizeof(struct node));
+    if(ptr == NULL)
+    {
+        printf("Memory Overflow");
+    }
+    ptr->data=item;
+    if(head == NULL)
+    {
+        ptr->prev=NULL;
+        ptr->next=NULL;
+        head=ptr;
+    }
+    else
+    {
+       struct node* temp=head;
+       while(temp->data != item)
+       {
+        temp=temp->next;
+        if(temp == NULL)
+        {
+            return;
+        }
+       }
+        ptr->prev=temp;
+        ptr->next=temp->next;
+        temp->next=ptr;
+        temp->next->prev=ptr;
+     }
+}
+
+
+void traverse()
+{
+    struct node* temp=head;
+    while( temp != NULL)
+    {
+        printf("%d->",temp->data);
+        temp=temp->next;   
+    }
+    
+}
+
+
+void Deletefirst()
+{
+    if(head == NULL)
+    {
+        printf("No node has been inserted to delete");
+        return;
+    }
+    else
+    {
+        struct node *temp=head;
+        head=temp->next;
+        temp->next->prev=NULL;
+       
+        free(temp);
+    }
+}
+
+void Deleteend()
+{
+    if(head == NULL)
+    {
+        printf("No node is inserted to delete ");
+        return;
+    }
+    
+    struct node* temp=head;
+    
+    if(temp->next==NULL)
+    {
+        printf("Only one node is present");
+        head=NULL;
+        free(temp);
+    }
+    while(temp->next != NULL)
+    {
+        temp=temp->next;
+    }
+    temp->prev->next=NULL;
+    free(temp);
+}
+
+int main()
+{
+    int choice=0;
+    
+    while(choice != 9)
+    {
+        printf("Enter ur choice \n 1.Insertionfirst 2.Insertionmiddle \n 3.Insertionend \n 4. Deletefirst \n 5. DeleteMiddle \n  6.Deleteend \n 7.Traverse \n 8.Search");
+    scanf("%d",&choice);
+        
+        switch(choice)
+        {
+           case 1:
+           {
+               int item;
+               printf("Enter the item to be inserted: ");
+               scanf("%d",&item);
+               Insertionfirst(item);
+               break;
+           }
+           case 2:
+           {
+               int item;
+               printf("Enter the item after which node to be inserted");
+               scanf("%d",&item);
+               Insertionmiddle(item);
+               break;
+           }
+           case 3:
+           {
+               int item;
+               printf("Enter the item to be inserted");
+               scanf("%d",&item);
+               Insertionend(item);
+               break;
+           }
+           case 4:
+           {
+               Deletefirst(); 
+               break;
+           }
+           case 5:
+           {
+               //DeleteMiddle();
+               break;
+           }
+           case 6:
+           {
+               Deleteend(); 
+               break;
+           }
+           case 7:
+           {
+               traverse();
+               break;
+           }
+           case 8:
+           {
+               //Search();
+               break;
+           }
+           
+            case 9:
+           {
+               exit(0);
+           }
+           default:
+           {
+               printf("Please Enter Valid choice");
+               break;
+           }
+           
+        }
+        
+    }
+    
+ 
+    return 0;
+}
