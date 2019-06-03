@@ -1,11 +1,4 @@
-/******************************************************************************
 
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
-C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
-Code, Compile, Run and Debug online from anywhere in world.
-
-*******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -124,12 +117,17 @@ void Deletefirst()
         printf("No node has been inserted to delete");
         return;
     }
+    struct node *temp=head;
+    if(temp->next == NULL)
+    {
+        head=NULL;
+        free(temp);
+    }
     else
     {
-        struct node *temp=head;
+        
         head=temp->next;
         temp->next->prev=NULL;
-       
         free(temp);
     }
 }
@@ -156,6 +154,68 @@ void Deleteend()
     }
     temp->prev->next=NULL;
     free(temp);
+}
+
+void DeleteMiddle()
+{
+    if(head == NULL)
+    {
+        printf("No node to delete");
+        return;
+    }
+    int data;
+    printf("Enter the data after which node to be deleted ");
+    scanf("%d",&data);
+    struct node* temp=head;
+    while(temp->data != data)
+    {
+        temp=temp->next;
+        
+        if(temp == NULL)
+        {
+            return;
+        }
+       
+    }
+     if(temp->next == NULL)
+        {
+            printf("No data found");
+            return;
+        }
+    struct node* ptr=temp->next;
+    temp->next=ptr->next;
+    ptr->next->prev=temp;
+    free(ptr);
+}
+
+void Search()
+{
+    int search,flag=0,i=0;
+    printf("Enter the element to be searched..");
+    scanf("%d",&search);
+    if(head == NULL)
+    {
+        return;
+    }
+    struct node* temp=head;
+    while((temp->next != NULL) && (temp->data != search))
+    {
+        temp=temp->next;
+        i++;
+        if(temp->data == search)
+        {
+            flag=1;
+            printf("Element is found at position %d",i+1);
+            break;
+            
+        }
+    }
+    if(flag == 0)
+    {
+        printf("Element not found!!");
+    }
+    
+    
 }
 
 int main()
@@ -200,7 +260,7 @@ int main()
            }
            case 5:
            {
-               //DeleteMiddle();
+               DeleteMiddle();
                break;
            }
            case 6:
@@ -215,7 +275,7 @@ int main()
            }
            case 8:
            {
-               //Search();
+               Search();
                break;
            }
            
