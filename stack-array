@@ -1,0 +1,70 @@
+
+#include <stdio.h>
+
+int top=-1,stack[5],item;
+void push()
+{
+    int n=sizeof(stack)/sizeof(stack[0]);
+    if(top == n-1)
+    {
+        printf("Reached top of the stack");
+    }
+    else
+    {
+        printf("Enter the item: ");
+        scanf("%d",&item);
+        top=top+1;
+        stack[top]=item;
+    }
+}
+void pop()
+{
+    if(top == -1)
+    {
+        printf("Stack underflow");
+    }
+    else
+    {
+        top=top-1;
+    }
+}
+
+void peek()
+{
+    printf("Stack elements are: ");
+    for(int j=top;j>=0;--j)
+    {
+        printf("%d\t",stack[j]);
+    }
+}
+int main()
+{
+    int choice=0;
+    while(choice != 4)
+    {
+        printf("Enter the choices: \n 1.push \n 2.pop \n 3.peek \n ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            {
+                push();
+                break;
+            }
+            
+            case 2:
+            {
+                pop();
+                break;
+            }
+            case 3:
+            {
+                peek();
+                break;
+            }
+            
+        }
+    }
+
+    return 0;
+}
