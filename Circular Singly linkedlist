@@ -1,0 +1,231 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node* next;
+    struct node* prev;
+};
+struct node* head;
+
+void Insertionfirst(int item)
+{
+    struct node* ptr=(struct node*)malloc(sizeof(struct node));
+    if(ptr == NULL)
+    {
+        printf("Memory Overflow");
+    }
+    ptr->data=item;
+    if(head == NULL)
+    {
+        head=ptr;
+        ptr->next=head;
+    }
+    else
+    {
+        struct node* temp=head;
+        while(temp->next !=head)
+        {
+            temp=temp->next;
+        }
+        temp->next=ptr;
+        ptr->next=head;
+        head=ptr;
+    }
+}
+
+
+void Insertionend(int item)
+{
+    struct node* ptr=(struct node*)malloc(sizeof(struct node));
+    if(ptr == NULL)
+    {
+        printf("Memory Overflow");
+    }
+    ptr->data=item;
+    if(head == NULL)
+    {
+        head=ptr;
+        ptr->next=head;
+    }
+    else
+    {
+        struct node* temp=head;
+        while(temp->next != head)
+        {
+            temp=temp->next;
+        }
+        temp->next=ptr;
+        ptr->next=head;
+    }
+   
+}
+
+void traverse()
+{
+    struct node* temp=head;
+    if(head == NULL)
+    {
+        printf("Nothing to display");
+    }
+    else
+    {
+        while( temp->next != head)
+        {
+            printf("%d->",temp->data);
+            temp=temp->next;   
+        }
+        printf("%d",temp->data);
+    }
+    
+}
+
+
+void Deletefirst()
+{
+    if(head == NULL)
+    {
+        printf("No node has been inserted to delete");
+        return;
+    }
+    struct node *temp=head;
+    if(temp->next == head)
+    {
+        head=NULL;
+        free(temp);
+    }
+    else
+    {
+       while(temp->next != head)
+       {
+           temp=temp->next;
+       }
+       temp->next=head->next;
+       head=head->next;
+    }
+}
+
+void Deleteend()
+{
+    if(head == NULL)
+    {
+        printf("No node is inserted to delete ");
+        return;
+    }
+    
+    struct node* temp=head;
+    struct node* temp1;
+    if(temp->next == head)
+    {
+        head=NULL;
+        free(temp);
+        
+    }
+    else
+    {
+        while(temp->next != head)
+        {
+            temp1=temp;
+            temp=temp->next;
+        }
+        temp1->next=temp->next;
+        free(temp);
+    }
+}
+
+void Search()
+{
+    int search,flag=0,i=0;
+    printf("Enter the element to be searched..");
+    scanf("%d",&search);
+    if(head == NULL)
+    {
+        return;
+    }
+    struct node* temp=head;
+    while((temp->next != head) && (temp->data != search))
+    {
+        temp=temp->next;
+        i++;
+        if(temp->data == search)
+        {
+            flag=1;
+            printf("Element is found at position %d",i+1);
+            break;
+            
+        }
+    }
+    if(flag == 0)
+    {
+        printf("Element not found!!");
+    }
+    
+    
+}
+
+int main()
+{
+    int choice=0;
+    
+    while(choice != 7)
+    {
+    printf("Enter ur choice \n 1.Insertionfirst \n 2.Insertionend \n 3. Deletefirst \n 4.Deleteend \n 5.Traverse \n 6.Search");
+    scanf("%d",&choice);
+        
+        switch(choice)
+        {
+           case 1:
+           {
+               int item;
+               printf("Enter the item to be inserted: ");
+               scanf("%d",&item);
+               Insertionfirst(item);
+               break;
+           }
+          
+           case 2:
+           {
+               int item;
+               printf("Enter the item to be inserted");
+               scanf("%d",&item);
+               Insertionend(item);
+               break;
+           }
+           case 3:
+           {
+               Deletefirst(); 
+               break;
+           }
+          
+           case 4:
+           {
+               Deleteend(); 
+               break;
+           }
+           case 5:
+           {
+               traverse();
+               break;
+           }
+           case 6:
+           {
+               Search();
+               break;
+           }
+           
+            case 7:
+           {
+               exit(0);
+           }
+           default:
+           {
+               printf("Please Enter Valid choice");
+               break;
+           }
+           
+        }
+        
+    }
+ return 0;
+}
