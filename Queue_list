@@ -1,0 +1,107 @@
+
+#include <stdio.h>
+    struct node
+    {
+        int data;
+        struct node* next;
+        
+    };
+    
+    struct node* front=NULL;
+    struct node* rear=NULL;
+
+void Insert()
+{
+    struct node* ptr=(struct node*)malloc(sizeof(struct node*));
+    if(ptr == NULL)
+    {
+        printf("Memory Overflow");
+    }
+    int item;
+    printf("Enter th element to insert");
+    scanf("%d",&item);
+    ptr->data=item;
+    if(front == NULL)
+    {
+        front=ptr;
+        rear=ptr;
+        front->next=NULL;
+        rear->next=NULL;
+    }
+    else
+    {
+        rear->next=ptr;
+        ptr->next=NULL;
+        rear=ptr;
+    }
+    
+}
+
+void Delete()
+{
+    if(front == NULL)
+    {
+        printf("No node in the queue");
+        return;
+    }
+    else
+    {
+        struct node* temp=front;
+        front=front->next;
+        free(temp);
+    }
+}
+
+void Display()
+{
+    struct node* temp=front;
+    if(temp == NULL)
+    {
+        printf("Nothing to display");
+        
+    }
+    else
+    {
+        while(temp != rear)
+        {
+            printf("%d ->",temp->data);
+            temp=temp->next;
+        }
+        printf("%d",temp->data);
+        
+    }
+    
+    
+    
+    
+    
+    
+}
+int main()
+{
+    int choices;
+    while(choices != 4)
+    {
+        printf("Enter the choices \n 1.Insert \n 2. Delete \n 3. Display \n ");
+        scanf("%d",&choices);
+        switch(choices)
+        {
+            case 1:
+                Insert();
+                break;
+            
+            case 2:
+                Delete();
+                break;
+            
+            case 3:
+                Display();
+                break;
+                
+            case 4:
+                exit(0);
+        }
+    }
+
+    return 0;
+}
